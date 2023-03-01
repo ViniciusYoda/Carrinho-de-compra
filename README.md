@@ -10,8 +10,6 @@ Api para controle de compras de um carrinhos
     - [Apagar](#apagar-produto)
     - [Atualizar](#detalhar-atualização)
     - [Listar todas](#listar-produto)
-- Contas
-- Categorias
 
 ---
 
@@ -144,3 +142,6 @@ Api para controle de compras de um carrinhos
 |-|-
 | 200 | produto listado com sucesso
 | 404 | produtos não encontrado
+
+---
+

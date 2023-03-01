@@ -65,7 +65,7 @@ Api para controle de compras de um carrinhos
 | código | descrição
 |-|-
 | 200 | dados retornados com sucesso
-| 404 | não existe despesa com o id informado
+| 404 | não existe produto com o id informado
 
 ---
 
@@ -75,8 +75,8 @@ Api para controle de compras de um carrinhos
 
 | código | descrição
 |-|-
-| 200 | dados retornados com sucesso
-| 404 | não existe despesa com o id informado
+| 200 | produto apagado com sucesso
+| 404 | não existe produto com o id informado
 
 ---
 
@@ -105,6 +105,13 @@ Api para controle de compras de um carrinhos
 }
 ```
 
+**Códigos de Resposta**
+
+| código | descrição
+|-|-
+| 200 | produto atualizado com sucesso
+| 404 | produto com id não encontrado
+
 --- 
 
 ### Listar Produto
@@ -130,3 +137,10 @@ Api para controle de compras de um carrinhos
     preco: 3.98
 }
 ```
+
+**Códigos de Resposta**
+
+| código | descrição
+|-|-
+| 200 | produto listado com sucesso
+| 404 | produtos não encontrado

@@ -1,43 +1,39 @@
-# Dindin Sem Fim
+# Carrinho de compra
 
-Uma API para o app de controle de gastos pessoais.
+Api para controle de compras de um carrinhos
 
 ## Endpoints
 
-- Despesas
-    - [Cadastrar](#cadastrar-despesa)
-    - [Mostrar detalhes](#detalhar-despesa)
-    - Apagar
-    - Atualizar
-    - Listar todas
+- Produtos
+    - [Cadastrar](#cadastrar-produto)
+    - [Mostrar detalhes](#detalhar-produto)
+    - [Apagar](#apagar-produto)
+    - [Atualizar](#detalhar-atualização)
+    - [Listar todas](#listar-produto)
 - Contas
 - Categorias
 
 ---
 
-### Cadastrar Despesa
+### Cadastrar produto
 
-`POST` /api/despesa
+`POST` /api/produto
 
 **Campos da requisição**
 
 | campo | tipo | obrigatório | descrição
 |-------|------|:-------------:|---
-|valor | decimal | sim | o valor da despesa, deve ser maior que zero
-|data|data|sim| a data da despesa
-|categoria_id | int | sim | código de uma categoria previamente cadastrada
-|conta_id |int |int | o código de uma conta previamente cadastrada
-|descricao|texto|não| um texto sobre a despesa com no máximo de 255 caracteres
+| id | id | sim | O id precisa ser diferente para cada produto
+| Nome | string | sim | O nome do produto a ser colocado
+| Preço | float | sim | O preço do produto, precisa ser maior que R$0,05
 
 **Exemplo de corpo de requisição**
 
 ```js
 {
-    valor: 100.00,
-    data: '2023-02-28',
-    categoria_id: 1,
-    conta_id: 1,
-    descricao: 'cinema'
+    id: 1,
+    nome: 'Arroz',
+    preco: 4.15
 }
 ```
 
@@ -45,30 +41,22 @@ Uma API para o app de controle de gastos pessoais.
 
 | código | descrição
 |-|-
-| 201 | despesa cadastrada com sucesso
+| 201 | produto cadastrado com sucesso
 | 400 | os campos enviados são inválidos
 
 ---
 
-### Detalhar Despesa
+### Detalhar Produto
 
-`GET` /api/despesa/{id}
+`GET` /api/produto/{id}
 
 **Exemplo de Corpo da Resposta**
 
 ```js
 {
-    valor: 100.00,
-    data: '2023-02-28',
-    categoria: {
-        categoria_id: 1,
-        nome: 'lazer',
-    },
-    conta: {
-        conta_id: 1,
-        nome: 'itaú',
-    }
-    descricao: 'cinema'
+    id: 1,
+    nome: 'Arroz',
+    preco: 4.15
 }
 ```
 
@@ -78,3 +66,67 @@ Uma API para o app de controle de gastos pessoais.
 |-|-
 | 200 | dados retornados com sucesso
 | 404 | não existe despesa com o id informado
+
+---
+
+### Apagar Produto
+
+`DELETE`/api/produto/{id}
+
+| código | descrição
+|-|-
+| 200 | dados retornados com sucesso
+| 404 | não existe despesa com o id informado
+
+---
+
+### Atualizar Produto
+
+`PUT` /api/produto/{id}
+
+
+**Exemplo de corpo de requisição**
+
+```js
+{
+    id: 1,
+    nome: 'Arroz',
+    preco: 4.15
+}
+```
+
+**Exemplo de Corpo da Resposta**
+
+```js
+{
+    id: 1,
+    nome: 'Arroz',
+    preco: 4.30
+}
+```
+
+--- 
+
+### Listar Produto
+
+`GET` /api/produto
+
+**Exemplo de Corpo da Resposta**
+
+```js
+{
+    id: 1,
+    nome: 'Arroz',
+    preco: 4.30
+},
+{
+    id: 2,
+    nome: 'Feijão',
+    preco: 8.98
+},
+{
+    id: 3,
+    nome: 'Macarrão',
+    preco: 3.98
+}
+```

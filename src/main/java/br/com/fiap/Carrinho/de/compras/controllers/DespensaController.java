@@ -6,8 +6,8 @@ import org.springframework.sterotype.Controller;
 public class DespensaController {
 
    @GetMapping("/api/despesas")
-   public String show() {
-      return "despensa";
+   public Despesa show() {
+      return new Despensa(new BigDecimal(100), LocalDate.now(), "cinema");
    }
    
 }

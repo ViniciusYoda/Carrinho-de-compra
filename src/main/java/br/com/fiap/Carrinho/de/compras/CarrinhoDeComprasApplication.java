@@ -10,4 +10,4 @@ public class CarrinhoDeComprasApplication {
 		SpringApplication.run(CarrinhoDeComprasApplication.class, args);
 	}
 
-}
+;}

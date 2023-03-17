@@ -3,21 +3,21 @@ package br.com.fiap.Carrinho.de.compras.models;
 
 public class Produtos {
    
-   private int id;
+   private Long id;
    private String name;
    private double price;
 
-   public Produtos(int id, String name, double price){
+   public Produtos(Long id, String name, double price){
       this.id = id;
       this.name = name;
       this.price = price;
    }
 
-   public int getId(){
+   public Long getId(){
       return id;
    }
 
-   public void setId(int id){
+   public void setId(Long id){
       this.id = id;
    }
 

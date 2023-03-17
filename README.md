@@ -114,7 +114,7 @@ Api para controle de compras de um carrinhos
 
 ### Listar Produto
 
-`GET` /api/produto
+`GET` /api/produtos
 
 **Exemplo de Corpo da Resposta**
 

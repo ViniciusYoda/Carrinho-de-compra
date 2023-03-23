@@ -1,4 +1,4 @@
-package br.com.fiap.Carrinho.de.compras;
+package br.com.fiap.carrinhoDeCompras;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,4 +10,4 @@ public class CarrinhoDeComprasApplication {
 		SpringApplication.run(CarrinhoDeComprasApplication.class, args);
 	}
 
-;}
+}

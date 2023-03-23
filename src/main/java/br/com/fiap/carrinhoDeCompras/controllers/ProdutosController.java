@@ -1,7 +1,8 @@
-package br.com.fiap.Carrinho.de.compras.controller;
+package br.com.fiap.carrinhoDeCompras.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,68 +11,70 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fiap.dindin.models.Produtos;
+import br.com.fiap.carrinhoDeCompras.models.Produtos;
+import br.com.fiap.carrinhoDeCompras.repositoty.ProdutosRepository;
 
 @RestController
+@RequestMapping("/api/produtos")
 public class ProdutosController {
 
    Logger log = LoggerFactory.getLogger(ProdutosController.class);
 
-   List<Produtos> produtos = new ArrayList<>();
+   @Autowired
+   ProdutosRepository repository;
 
-   @GetMapping("/api/produtos")
+   @GetMapping
    public List<Produto> lista(){
-      return produtos
+      return repository.findAll();
    }
 
-   @PostMapping("/api/produto")
-   public ResponseEntity<Produto> create(@RequestBody Prdoutos produto){
+   @PostMapping
+   public ResponseEntity<Produto> create(@RequestBody Produtos produto){
       log.info("Cadastro do produto " _ produto);
-      produtos.setId(produtos.size() + 1l);
-      produtos.add(produto);
+      produtos.save(produto);
       return ResponseEntity.status(HttpStatus.CREATED).body(produto);
    }
 
-   @GetMapping("/api/produto/{id}")
+   @GetMapping("{id}")
    public ResponseEntity<Produtos> show(@PathVariable Long id){
       log.info("Detalhe do produto" + id);
-      var getProduto = produtos.stream().filter(p -> p.getId().equals(id)).findFirst();
+      var getProduto = repository.findById(id);
 
       if (getProduto.isEmpty())
-         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+         return ResponseEntity.notFound().build();
 
       return ResponseEntity.ok(getProduto.get());
    }
 
-   @DeleteMapping("/api/produto/{id}")
+   @DeleteMapping("{id}")
    public ResponseEntity<Produtos> destroy(@PathVariable Long id){
       log.info("Apagando o produto" + id);
-      var getProduto = produtos.stream().filter(p -> p.getId().equals(id)).findFirst();
+      var getProduto = repository.findById(id);
 
       if (getProduto.isEmpty())
-         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+         return ResponseEntity.notFound().build();
 
-            produtos.remove(getProduto.get());
+            repository.delete(getProduto.get());
 
-      return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+      return ResponseEntity.noContent().build();
    }
 
-   @PutMapping("/api/produtos/{id}")
+   @PutMapping("{id}")
    public ResponseEntity<Produtos> update(@PathVariable Long id, @RequestBody Produtos produto){
       log.info("Produto atualizado " + id);
-      var getProduto = produtos.stream().filter(p -> p.getId().equals(id)).findFirst();
+      var getProduto = repository.findById(id);
 
       if (getProduto.isEmpty())
-         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+         return ResponseEntity.notFound().build();
 
-      produtos.remove(getProduto.get());
-      produto.setId(id);
-      produtos.add(produto);
+      despesa.setId(id);
+      repository.save(produto);
 
       return ResponseEntity.ok(produto)
    }

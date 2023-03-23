@@ -1,11 +1,20 @@
-package br.com.fiap.Carrinho.de.compras.models;
+package br.com.fiap.carrinhoDeCompras.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Produtos {
    
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
    private String name;
    private double price;
+
+   public Produtos(){}
 
    public Produtos(Long id, String name, double price){
       this.id = id;

@@ -1,4 +1,4 @@
-package br.com.fiap.Carrinho.de.compras;
+package br.com.fiap.carrinhoDeCompras;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

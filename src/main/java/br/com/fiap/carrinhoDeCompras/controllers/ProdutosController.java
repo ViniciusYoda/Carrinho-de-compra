@@ -36,7 +36,7 @@ public class ProdutosController {
 
    @PostMapping
    public ResponseEntity<Produto> create(@RequestBody Produtos produto){
-      log.info("Cadastro do produto " _ produto);
+      log.info("Cadastro do produto " + produto);
       produtos.save(produto);
       return ResponseEntity.status(HttpStatus.CREATED).body(produto);
    }

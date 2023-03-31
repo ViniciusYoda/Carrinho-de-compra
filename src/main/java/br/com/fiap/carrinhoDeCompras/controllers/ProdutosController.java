@@ -1,4 +1,4 @@
-package br.com.fiap.carrinhoDeCompras.controller;
+package br.com.fiap.carrinhoDeCompras.controllers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fiap.carrinhoDeCompras.exceptions.RestNotFoundException;
 import br.com.fiap.carrinhoDeCompras.models.Produtos;
+import br.com.fiap.carrinhoDeCompras.models.RestValidationError;
 import br.com.fiap.carrinhoDeCompras.repositoty.ProdutosRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -30,53 +33,49 @@ public class ProdutosController {
    ProdutosRepository repository;
 
    @GetMapping
-   public List<Produto> lista(){
+   public List<Produtos> lista(){
       return repository.findAll();
    }
 
    @PostMapping
-   public ResponseEntity<Produto> create(@RequestBody Produtos produto){
+   public ResponseEntity<Object> create(@RequestBody @Valid Produtos produto){
       log.info("Cadastro do produto " + produto);
-      produtos.save(produto);
+      repository.save(produto);
       return ResponseEntity.status(HttpStatus.CREATED).body(produto);
    }
 
    @GetMapping("{id}")
    public ResponseEntity<Produtos> show(@PathVariable Long id){
       log.info("Detalhe do produto" + id);
-      var getProduto = repository.findById(id);
+      var produto = repository.findById(id)
+         .orElseThrow(() -> new RestNotFoundException("produto não encontrado"));
 
-      if (getProduto.isEmpty())
-         return ResponseEntity.notFound().build();
-
-      return ResponseEntity.ok(getProduto.get());
+      return ResponseEntity.ok(produto);
    }
 
    @DeleteMapping("{id}")
    public ResponseEntity<Produtos> destroy(@PathVariable Long id){
       log.info("Apagando o produto" + id);
-      var getProduto = repository.findById(id);
+      var produto = repository.findById(id)
+         .orElseThrow(() -> new RestNotFoundException("Erro ao apapgar, produto não encontrado"));
 
-      if (getProduto.isEmpty())
-         return ResponseEntity.notFound().build();
-
-            repository.delete(getProduto.get());
+      repository.delete(produto);   
 
       return ResponseEntity.noContent().build();
    }
 
    @PutMapping("{id}")
-   public ResponseEntity<Produtos> update(@PathVariable Long id, @RequestBody Produtos produto){
+   public ResponseEntity<Produtos> update(@PathVariable Long id, @RequestBody @Valid Produtos produto){
       log.info("Produto atualizado " + id);
-      var getProduto = repository.findById(id);
+      repository.findById(id)
+         .orElseThrow(() -> new RestNotFoundException("Erro ao apagar, produto não encontrado"));
 
-      if (getProduto.isEmpty())
-         return ResponseEntity.notFound().build();
-
-      despesa.setId(id);
+      produto.setId(id);
       repository.save(produto);
 
-      return ResponseEntity.ok(produto)
+      return ResponseEntity.ok(produto);
+
+    
    }
    
 }

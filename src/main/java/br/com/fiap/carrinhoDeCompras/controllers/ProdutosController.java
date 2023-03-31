@@ -68,7 +68,7 @@ public class ProdutosController {
    public ResponseEntity<Produtos> update(@PathVariable Long id, @RequestBody @Valid Produtos produto){
       log.info("Produto atualizado " + id);
       repository.findById(id)
-         .orElseThrow(() -> new RestNotFoundException("Erro ao apagar, produto não encontrado"));
+         .orElseThrow(() -> new RestNotFoundException("Erro ao atualizar, produto não encontrado"));
 
       produto.setId(id);
       repository.save(produto);

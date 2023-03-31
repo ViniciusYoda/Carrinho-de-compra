@@ -8,8 +8,14 @@ Api para controle de compras de um carrinhos
     - [Cadastrar](#cadastrar-produto)
     - [Mostrar detalhes](#detalhar-produto)
     - [Apagar](#apagar-produto)
-    - [Atualizar](#detalhar-atualização)
+    - [Atualizar](#detalhar-atualização-produto)
     - [Listar todas](#listar-produto)
+- Pagamento
+    - [Cadastrar](#cadstrar-pagamento)
+    - [Mostrar pagamento](#dedtalhar-pagamento)
+    - [Apagar](#apagar-pagamento)
+    - [Atualizar](#detalhar-atualização-pagamento)
+    - [Listar todos](#listar-pagamentos)
 
 ---
 
@@ -145,3 +151,148 @@ Api para controle de compras de um carrinhos
 
 ---
 
+### Cadastrar pagamento
+
+`POST` /api/pagamento
+
+**Campos da requisição**
+
+| campo | tipo | obrigatório | descrição
+|-------|------|:-------------:|---
+| id | id | sim | O id precisa ser diferente para cada produto
+| Valor | Double | sim | Valor para pagar
+| tipoDePagamento | String | sim | Qual tipo de pagamento 
+| sucessBoolean | Boolean | sim | Se o pagamento foi um sucesso ou não
+
+**Exemplo de corpo de requisição**
+
+```js
+{
+    id: 1,
+    valor: 54.60,
+    tipoDePagamento: 'Débito',
+    sucessBoolean: true
+}
+```
+
+**Códigos de Resposta**
+
+| código | descrição
+|-|-
+| 201 | pagamento cadastrado com sucesso
+| 400 | os campos enviados são inválidos
+
+---
+
+### Detalhar Pagamento
+
+`GET` /api/pagamento/{id}
+
+**Exemplo de Corpo da Resposta**
+
+```js
+{
+    id: 1,
+    valor: 54.60,
+    tipoDePagamento: 'Débito',
+    sucessBoolean: true
+}
+```
+
+**Códigos de Resposta**
+
+| código | descrição
+|-|-
+| 200 | dados retornados com sucesso
+| 404 | não existe pagamento com o id informado
+
+---
+
+### Atualizar Pagamento
+
+`PUT` /api/pagamento/{id}
+
+
+**Exemplo de corpo de requisição**
+
+```js
+{
+    id: 1,
+    valor: 54.60,
+    tipoDePagamento: 'Débito',
+    sucessBoolean: true
+}
+```
+
+**Exemplo de Corpo da Resposta**
+
+```js
+{
+    id: 1,
+    valor: 54.60,
+    tipoDePagamento: 'Boleto',
+    sucessBoolean: true
+}
+```
+
+**Códigos de Resposta**
+
+| código | descrição
+|-|-
+| 200 | pagamento atualizado com sucesso
+| 404 | pagamento com id não encontrado
+
+--- 
+
+### Apagar Produto
+
+`DELETE`/api/pagamento/{id}
+
+| código | descrição
+|-|-
+| 200 | pagamento apagado com sucesso
+| 404 | não existe pagamento com o id informado
+
+---
+
+### Listar Pagamento
+
+`GET` /api/pagamentos
+
+**Exemplo de Corpo da Resposta**
+
+```js
+{
+    id: 1,
+    valor: 54.60,
+    tipoDePagamento: 'Débito',
+    sucessBoolean: true
+},
+{
+    id: 2,
+    valor: 20.90,
+    tipoDePagamento: 'Crédito',
+    sucessBoolean: false
+},
+{
+    id: 3,
+    valor: 200.00,
+    tipoDePagamento: 'Boleto',
+    sucessBoolean: true
+},
+{
+    id: 4,
+    valor: 89.99,
+    tipoDePagamento: 'Transferência',
+    sucessBoolean: true
+}
+```
+
+**Códigos de Resposta**
+
+| código | descrição
+|-|-
+| 200 | pagamento listado com sucesso
+| 404 | pagamentos não encontrado
+
+---

@@ -10,6 +10,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Produtos {
    
    @Id
@@ -26,52 +28,6 @@ public class Produtos {
 
    @NotBlank @Size(min = 5, max = 255)
    private String categoria;
-
-   public Produtos(){}
-
-   public Produtos(Long id, String name, double price, String categoria){
-      this.id = id;
-      this.name = name;
-      this.price = price;
-      this.categoria = categoria;
-   }
-
-   public Long getId(){
-      return id;
-   }
-
-   public void setId(Long id){
-      this.id = id;
-   }
-
-   public String getName(){
-      return name;
-   }
-
-   public void setName(String name){
-      this.name = name;
-   }
-
-   public double getPrice(){
-      return price;
-   }
-
-   public void setPrice(double price){
-      this.price = price;
-   }
-
-   public String getCategoria() {
-      return categoria;
-   }
-
-   public void setCategoria(String categoria) {
-      this.categoria = categoria;
-   }
-
-   @Override
-   public String toString() {
-       return "Produto [id=" + id + ", name=" + name + ", price=" + price + ", categoria= " + categoria + "]";
-   }
 
    
 }

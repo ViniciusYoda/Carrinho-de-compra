@@ -19,15 +19,17 @@ import java.util.List;
 
 import br.com.fiap.carrinhoDeCompras.exceptions.RestNotFoundException;
 import br.com.fiap.carrinhoDeCompras.models.Pagamento;
+import br.com.fiap.carrinhoDeCompras.models.Produtos;
 import br.com.fiap.carrinhoDeCompras.models.RestValidationError;
 import br.com.fiap.carrinhoDeCompras.repositoty.PagamentoRepository;
+import br.com.fiap.carrinhoDeCompras.repositoty.ProdutosRepository;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/pagamento")
 public class PagamentoController {
 
-   Logger log = LoggerFactory.getLogger(PagamentoController.class);
+   Logger log = LoggerFactory.getLogger(getClass());
 
    @Autowired
    PagamentoRepository repository;
@@ -38,7 +40,7 @@ public class PagamentoController {
    }
 
    @PostMapping
-   public ResponseEntity<Object> create(@RequestBody @Valid Pagamento pagamento){
+   public ResponseEntity<Pagamento> create(@RequestBody @Valid Pagamento pagamento){
       log.info("Cadastro do pagamento " + pagamento);
       repository.save(pagamento);
       return ResponseEntity.status(HttpStatus.CREATED).body(pagamento);
@@ -47,17 +49,13 @@ public class PagamentoController {
    @GetMapping("{id}")
    public ResponseEntity<Pagamento> show(@PathVariable Long id){
       log.info("Detalhe do pagamento" + id);
-      var pagamento = repository.findById(id)
-         .orElseThrow(() -> new RestNotFoundException("pagamento não encontrado"));
-
-      return ResponseEntity.ok(pagamento);
+      return ResponseEntity.ok(getPagamento(id));
    }
 
    @DeleteMapping("{id}")
    public ResponseEntity<Pagamento> destroy(@PathVariable Long id){
       log.info("Deletando o pagamento" + id);
-      var pagamento = repository.findById(id)
-         .orElseThrow(() -> new RestNotFoundException("Erro ao apapgar, pagamento não encontrado"));
+      var pagamento = getPagamento(id);
 
       repository.delete(pagamento);   
 
@@ -67,8 +65,7 @@ public class PagamentoController {
    @PutMapping("{id}")
    public ResponseEntity<Pagamento> update(@PathVariable Long id, @RequestBody @Valid Pagamento pagamento){
       log.info("pagamento atualizado " + id);
-      repository.findById(id)
-         .orElseThrow(() -> new RestNotFoundException("Erro ao atualizar, pagamento não encontrado"));
+      getPagamento(id);
 
       pagamento.setId(id);
       repository.save(pagamento);
@@ -76,6 +73,11 @@ public class PagamentoController {
       return ResponseEntity.ok(pagamento);
 
     
+   }
+
+   private Pagamento getPagamento(Long id) {
+      return repository.findById(id)
+         .orElseThrow(() -> new RestNotFoundException("pagamento não encontrado"));
    }
    
 }

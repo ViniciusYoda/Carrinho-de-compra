@@ -21,6 +21,7 @@ import br.com.fiap.carrinhoDeCompras.exceptions.RestNotFoundException;
 import br.com.fiap.carrinhoDeCompras.models.Produtos;
 import br.com.fiap.carrinhoDeCompras.models.RestValidationError;
 import br.com.fiap.carrinhoDeCompras.repositoty.ProdutosRepository;
+import br.com.fiap.carrinhoDeCompras.repositoty.PagamentoRepository;
 import jakarta.validation.Valid;
 
 @RestController
@@ -30,24 +31,28 @@ public class ProdutosController {
    Logger log = LoggerFactory.getLogger(ProdutosController.class);
 
    @Autowired
-   ProdutosRepository repository;
+   ProdutosRepository produtosRepository;
+
+   @Autowired
+   PagamentoRepository pagamentoRepository;
 
    @GetMapping
    public List<Produtos> lista(){
-      return repository.findAll();
+      return produtosRepository.findAll();
    }
 
    @PostMapping
    public ResponseEntity<Object> create(@RequestBody @Valid Produtos produto){
       log.info("Cadastro do produto " + produto);
-      repository.save(produto);
+      produtosRepository.save(produto);
+      produto.setPagamento(pagamentoRepository.findById(produto.getPagamento().getId()).get());
       return ResponseEntity.status(HttpStatus.CREATED).body(produto);
    }
 
    @GetMapping("{id}")
    public ResponseEntity<Produtos> show(@PathVariable Long id){
       log.info("Detalhe do produto" + id);
-      var produto = repository.findById(id)
+      var produto = produtosRepository.findById(id)
          .orElseThrow(() -> new RestNotFoundException("produto não encontrado"));
 
       return ResponseEntity.ok(produto);
@@ -56,10 +61,10 @@ public class ProdutosController {
    @DeleteMapping("{id}")
    public ResponseEntity<Produtos> destroy(@PathVariable Long id){
       log.info("Apagando o produto" + id);
-      var produto = repository.findById(id)
+      var produto = produtosRepository.findById(id)
          .orElseThrow(() -> new RestNotFoundException("Erro ao apapgar, produto não encontrado"));
 
-      repository.delete(produto);   
+      produtosRepository.delete(produto);   
 
       return ResponseEntity.noContent().build();
    }
@@ -67,11 +72,11 @@ public class ProdutosController {
    @PutMapping("{id}")
    public ResponseEntity<Produtos> update(@PathVariable Long id, @RequestBody @Valid Produtos produto){
       log.info("Produto atualizado " + id);
-      repository.findById(id)
+      produtosRepository.findById(id)
          .orElseThrow(() -> new RestNotFoundException("Erro ao atualizar, produto não encontrado"));
 
       produto.setId(id);
-      repository.save(produto);
+      produtosRepository.save(produto);
 
       return ResponseEntity.ok(produto);
 

@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +27,14 @@ import br.com.fiap.carrinhoDeCompras.models.RestValidationError;
 import br.com.fiap.carrinhoDeCompras.repositoty.ProdutosRepository;
 import br.com.fiap.carrinhoDeCompras.repositoty.PagamentoRepository;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/produtos")
+@Slf4j
 public class ProdutosController {
 
-   Logger log = LoggerFactory.getLogger(ProdutosController.class);
+   // Logger log = LoggerFactory.getLogger(ProdutosController.class);
 
    @Autowired
    ProdutosRepository produtosRepository;
@@ -37,8 +43,9 @@ public class ProdutosController {
    PagamentoRepository pagamentoRepository;
 
    @GetMapping
-   public List<Produtos> lista(){
-      return produtosRepository.findAll();
+   public Page<Produtos> lista(@RequestParam(required = false) String busca, @PageableDefault(size = 5) Pageable pageable){
+      if (busca == null) return produtosRepository.findAll(pageable);
+      return produtosRepository.findByDescricaoContaining(busca, pageable);
    }
 
    @PostMapping

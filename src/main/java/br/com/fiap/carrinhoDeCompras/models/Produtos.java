@@ -1,5 +1,13 @@
 package br.com.fiap.carrinhoDeCompras.models;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+import org.springframework.hateoas.EntityModel;
+import org.springframework.data.domain.Pageable;
+
+import br.com.fiap.carrinhoDeCompras.controllers.ProdutosController;
+import br.com.fiap.carrinhoDeCompras.controllers.PagamentoController;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,7 +45,19 @@ public class Produtos {
    private String categoria;
 
    @ManyToOne
-   private Pagamento pagamento;
+   private Pagamento pagamento;   
+   
+   public EntityModel<Produtos> toEntityModel(){
+      return EntityModel.of(
+          this, 
+          linkTo(methodOn(ProdutosController.class).show(id)).withSelfRel(),
+          linkTo(methodOn(ProdutosController.class).destroy(id)).withRel("delete"),
+          linkTo(methodOn(ProdutosController.class).lista(null, Pageable.unpaged())).withRel("all"),
+          linkTo(methodOn(PagamentoController.class).show(this.getPagamento().getId())).withRel("pagamento")
+      );
+  }
+
+
 
    
 }

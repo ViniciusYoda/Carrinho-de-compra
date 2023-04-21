@@ -3,8 +3,8 @@ package br.com.fiap.carrinhoDeCompras.models;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import org.springframework.hateoas.EntityModel;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.EntityModel;
 
 import br.com.fiap.carrinhoDeCompras.controllers.ProdutosController;
 import br.com.fiap.carrinhoDeCompras.controllers.PagamentoController;

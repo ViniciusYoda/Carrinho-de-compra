@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.carrinhoDeCompras.exceptions.RestNotFoundException;
 import br.com.fiap.carrinhoDeCompras.models.Produtos;
 import br.com.fiap.carrinhoDeCompras.models.RestValidationError;
-import br.com.fiap.carrinhoDeCompras.repositoty.ProdutosRepository;
+import br.com.fiap.carrinhoDeCompras.repository.ProdutosRepository;
 import jakarta.validation.Valid;
 
 import java.util.ArrayList;

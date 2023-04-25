@@ -21,8 +21,8 @@ import br.com.fiap.carrinhoDeCompras.exceptions.RestNotFoundException;
 import br.com.fiap.carrinhoDeCompras.models.Pagamento;
 import br.com.fiap.carrinhoDeCompras.models.Produtos;
 import br.com.fiap.carrinhoDeCompras.models.RestValidationError;
-import br.com.fiap.carrinhoDeCompras.repositoty.PagamentoRepository;
-import br.com.fiap.carrinhoDeCompras.repositoty.ProdutosRepository;
+import br.com.fiap.carrinhoDeCompras.repository.PagamentoRepository;
+import br.com.fiap.carrinhoDeCompras.repository.ProdutosRepository;
 import jakarta.validation.Valid;
 
 @RestController

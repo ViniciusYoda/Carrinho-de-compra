@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.fiap.carrinhoDeCompras.models.Pagamento;
 import br.com.fiap.carrinhoDeCompras.models.Produtos;
-import br.com.fiap.carrinhoDeCompras.repositoty.PagamentoRepository;
-import br.com.fiap.carrinhoDeCompras.repositoty.ProdutosRepository;
+import br.com.fiap.carrinhoDeCompras.repository.PagamentoRepository;
+import br.com.fiap.carrinhoDeCompras.repository.ProdutosRepository;
 
 import java.util.List;
 

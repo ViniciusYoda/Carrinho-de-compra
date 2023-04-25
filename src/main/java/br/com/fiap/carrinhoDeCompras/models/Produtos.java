@@ -1,8 +1,5 @@
 package br.com.fiap.carrinhoDeCompras.models;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import org.springframework.data.domain.Pageable;
 import org.springframework.hateoas.EntityModel;
 
@@ -21,6 +18,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @Entity
 @Data

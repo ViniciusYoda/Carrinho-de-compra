@@ -1,4 +1,4 @@
-package br.com.fiap.carrinhoDeCompras.repositoty;
+package br.com.fiap.carrinhoDeCompras.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

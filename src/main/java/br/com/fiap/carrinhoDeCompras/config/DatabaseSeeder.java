@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.fiap.carrinhoDeCompras.models.Pagamento;
 import br.com.fiap.carrinhoDeCompras.models.Produtos;
+import br.com.fiap.carrinhoDeCompras.models.Usuario;
 import br.com.fiap.carrinhoDeCompras.repository.PagamentoRepository;
 import br.com.fiap.carrinhoDeCompras.repository.ProdutosRepository;
+import br.com.fiap.carrrinhoDeCompras.repository.UsuarioRepository;
 
 import java.util.List;
 
@@ -19,6 +21,10 @@ public class DatabaseSeeder implements CommandLineRunner {
 
    @Autowired
    PagamentoRepository pagamentoRepository;
+
+   
+   @Autowired
+   UsuarioRepository usuarioRepository;
 
    @Override
    public void run(String... args) throws Exception {
@@ -33,6 +39,13 @@ public class DatabaseSeeder implements CommandLineRunner {
          Produtos.builder().price(3.30).categoria("Alimento").name("Chocolate").pagamento(p2).build(),
          Produtos.builder().price(1.75).categoria("Alimento").name("Água").pagamento(p3).build()
       ));
+
+      usuarioRepository.save(Usuario.builder()
+      .nome("Vinícius Yoda")
+      .email("vyoda@fiap.com.br")
+      .senha("$2a$12$pMH3uGhwRXAaEq21jmmqn.PzxykI/HJyVAXM6sIQlcQ/2emqevaWC")
+      .build()
+  );
    }
 }
 

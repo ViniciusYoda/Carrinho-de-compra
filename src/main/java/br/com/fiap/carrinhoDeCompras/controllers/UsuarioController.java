@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.carrinhoDeCompras.models.Credencial;
 import br.com.fiap.carrinhoDeCompras.models.Usuario;
 import br.com.fiap.carrinhoDeCompras.repository.UsuarioRepository;
+import br.com.fiap.carrinhoDeCompras.service.TokenJwtService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -26,6 +27,9 @@ public class UsuarioController {
    @Autowired
    PasswordEncoder encoder;
 
+   @Autowired
+   TokenJwtService tokenJwtService;
+
    @PostMapping("/api/registrar")
    public ResponseEntity<Usuario> registrar(@RequestBody @Valid Usuario usuario) {
       usuario.setSenha(encoder.encode(usuario.getSenha()));
@@ -36,7 +40,8 @@ public class UsuarioController {
    @PostMapping("/api/login")
    public ResponseEntity<Object> login(@RequestBody @Valid Credencial credencial) {
       manager.authenticate(credencial.toAuthentication());
-      return ResponseEntity.ok().build();
+      var token = tokenJwtService.generateToken(credencial);
+      return ResponseEntity.ok(token);
    }
    
 }

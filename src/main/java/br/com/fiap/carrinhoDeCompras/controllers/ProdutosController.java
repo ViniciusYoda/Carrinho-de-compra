@@ -62,7 +62,6 @@ public class ProdutosController {
    public ResponseEntity<Object> create(@RequestBody @Valid Produtos produto){
       log.info("Cadastro do produto " + produto);
       repository.save(produto);
-      // produto.setPagamento(pagamentoRepository.findById(produto.getPagamento().getId()).get());
       return ResponseEntity
       .created(produto.toEntityModel().getRequiredLink("self").toUri())
       .body(produto.toEntityModel());

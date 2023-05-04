@@ -9,7 +9,7 @@ import br.com.fiap.carrinhoDeCompras.models.Produtos;
 import br.com.fiap.carrinhoDeCompras.models.Usuario;
 import br.com.fiap.carrinhoDeCompras.repository.PagamentoRepository;
 import br.com.fiap.carrinhoDeCompras.repository.ProdutosRepository;
-import br.com.fiap.carrrinhoDeCompras.repository.UsuarioRepository;
+import br.com.fiap.carrinhoDeCompras.repository.UsuarioRepository;
 
 import java.util.List;
 

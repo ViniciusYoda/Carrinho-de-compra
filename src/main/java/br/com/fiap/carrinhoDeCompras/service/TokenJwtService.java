@@ -45,6 +45,6 @@ public class TokenJwtService {
                    .getSubject();
        
        return repository.findByEmail(email)
-           .orElseThrow(() -> new RuntimeException("carrinhoDeCompras"));
+           .orElseThrow(() -> new RuntimeException("Token inválido"));
    }
 }

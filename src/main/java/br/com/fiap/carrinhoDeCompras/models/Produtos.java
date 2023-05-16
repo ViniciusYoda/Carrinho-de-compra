@@ -32,7 +32,6 @@ public class Produtos {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
 
-
    @NotBlank @Size(min = 4, max = 20)
    private String name;
 
@@ -51,12 +50,9 @@ public class Produtos {
           this, 
           linkTo(methodOn(ProdutosController.class).show(id)).withSelfRel(),
           linkTo(methodOn(ProdutosController.class).destroy(id)).withRel("delete"),
-          linkTo(methodOn(ProdutosController.class).lista(null, Pageable.unpaged())).withRel("all"),
+          linkTo(methodOn(ProdutosController.class).index(null, Pageable.unpaged())).withRel("all"),
           linkTo(methodOn(PagamentoController.class).show(this.getPagamento().getId())).withRel("pagamento")
       );
   }
-
-
-
    
 }

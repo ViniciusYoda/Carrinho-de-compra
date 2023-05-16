@@ -1,10 +1,14 @@
 package br.com.fiap.carrinhoDeCompras.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,9 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.fiap.carrinhoDeCompras.exceptions.RestNotFoundException;
 import br.com.fiap.carrinhoDeCompras.models.Pagamento;
@@ -35,7 +36,7 @@ public class PagamentoController {
    PagamentoRepository repository;
 
    @GetMapping
-   public List<Pagamento> lista(){
+   public List<Pagamento> index(){
       return repository.findAll();
    }
 
@@ -56,9 +57,7 @@ public class PagamentoController {
    public ResponseEntity<Pagamento> destroy(@PathVariable Long id){
       log.info("Deletando o pagamento" + id);
       var pagamento = getPagamento(id);
-
       repository.delete(pagamento);   
-
       return ResponseEntity.noContent().build();
    }
 
@@ -66,13 +65,9 @@ public class PagamentoController {
    public ResponseEntity<Pagamento> update(@PathVariable Long id, @RequestBody @Valid Pagamento pagamento){
       log.info("pagamento atualizado " + id);
       getPagamento(id);
-
       pagamento.setId(id);
       repository.save(pagamento);
-
-      return ResponseEntity.ok(pagamento);
-
-    
+      return ResponseEntity.ok(pagamento);   
    }
 
    private Pagamento getPagamento(Long id) {

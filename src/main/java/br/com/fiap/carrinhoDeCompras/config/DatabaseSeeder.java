@@ -1,5 +1,7 @@
 package br.com.fiap.carrinhoDeCompras.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -10,19 +12,15 @@ import br.com.fiap.carrinhoDeCompras.models.Usuario;
 import br.com.fiap.carrinhoDeCompras.repository.PagamentoRepository;
 import br.com.fiap.carrinhoDeCompras.repository.ProdutosRepository;
 import br.com.fiap.carrinhoDeCompras.repository.UsuarioRepository;
-
-import java.util.List;
-
 @Configuration
 public class DatabaseSeeder implements CommandLineRunner {
 
    @Autowired
-   ProdutosRepository produtosRepository;
-
-   @Autowired
    PagamentoRepository pagamentoRepository;
 
-   
+   @Autowired
+   ProdutosRepository produtosRepository;
+
    @Autowired
    UsuarioRepository usuarioRepository;
 

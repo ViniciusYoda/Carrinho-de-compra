@@ -35,7 +35,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/produtos")
 @Slf4j
-@SecurityRequirement(name = "bearer-key")
+// @SecurityRequirement(name = "bearer-key")
 @Tag(name = "produtos")
 public class ProdutosController {
 

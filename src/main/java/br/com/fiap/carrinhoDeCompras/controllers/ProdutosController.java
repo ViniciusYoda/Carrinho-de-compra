@@ -60,7 +60,7 @@ public class ProdutosController {
    public PagedModel<EntityModel<Object>> index(@RequestParam(required = false) String busca, @ParameterObject @PageableDefault(size = 5) Pageable pageable){
       Page<Produtos> produtos = (busca == null)?
          produtosRepository.findAll(pageable):
-         produtosRepository.findByDescricaoContaining(busca, pageable);
+         produtosRepository.findByNameContaining(busca, pageable);
 
       return assembler.toModel(produtos.map(Produtos::toEntityModel));
    }

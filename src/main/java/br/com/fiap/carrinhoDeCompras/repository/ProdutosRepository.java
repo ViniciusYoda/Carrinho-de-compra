@@ -8,6 +8,6 @@ import br.com.fiap.carrinhoDeCompras.models.Produtos;
 
 public interface ProdutosRepository extends JpaRepository<Produtos, Long> {
 
-    Page<Produtos> findByDescricaoContaining(String busca, Pageable pageable);
+    Page<Produtos> findByNameContaining(String busca, Pageable pageable);
    
 }

@@ -42,6 +42,8 @@ public class Produtos {
    @NotBlank @Size(min = 5, max = 255)
    private String categoria;
 
+
+
    @ManyToOne
    private Pagamento pagamento;   
    
